@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gramlink 360 | Smart Village Services & Citizen Portal</title>
+  <meta name="description" content="A prize-level B.Tech CSBS Smart Village e-Governance platform for rural India. Transparent public services, grievance tracking, and local administration.">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+
+  <!-- Theme Initialization (Prevents FOUT) -->
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('gramlink_theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- =========================================================================
+       GRAMLINK 360 - CINEMATIC BRAND INTRO OVERLAY
+       Growing green leaf, glowing connected network nodes, soft radial glow,
+       letter-by-letter reveal & 360-degree connectivity animations
+       ========================================================================= -->
+  <aside id="gramlinkIntro" class="gramlink-intro-overlay smart-village-intro" aria-label="Gramlink 360 Smart Village Intro">
+    
+    <!-- Top Bar: Digital Governance Tagline & Skip Intro Button -->
+    <div class="intro-top-bar">
+      <div class="intro-gov-tag">
+        <span class="gov-pulse-dot" aria-hidden="true"></span>
+        <span class="gov-tag-text" data-i18n="intro_gov_tag">Digital Governance • Better Services • Stronger Communities</span>
+      </div>
+      <button id="skipIntroBtn" class="intro-skip-btn" aria-label="Skip Introduction">
+        <span data-i18n="intro_skip">Skip Intro</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="5 4 15 12 5 20 5 4"></polygon>
+          <line x1="19" y1="5" x2="19" y2="19"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Ambient Twilight Backdrop & Floating Cyber Particles -->
+    <div class="intro-particles-container" aria-hidden="true">
+      <span class="intro-particle p1"></span>
+      <span class="intro-particle p2"></span>
+      <span class="intro-particle p3"></span>
+      <span class="intro-particle p4"></span>
+      <span class="intro-particle p5"></span>
+      <span class="intro-particle p6"></span>
+      <span class="intro-particle p7"></span>
+      <span class="intro-particle p8"></span>
+    </div>
+
+    <!-- Main Panoramic Canvas: SEACAT Deep-Black Navy Theme + Cyber Smart Grid -->
+    <div class="smart-village-stage">
+      <!-- Three.js 3D WebGL Canvas -->
+      <canvas id="gramlink3DCanvas" class="gramlink-3d-canvas" aria-label="Gramlink 360 3D Spatial Scene"></canvas>
+
+      <svg class="smart-village-canvas" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <!-- Dusk Sky Gradient -->
+          <linearGradient id="duskSkyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#020817" />
+            <stop offset="35%" stop-color="#0b1b36" />
+            <stop offset="55%" stop-color="#182c50" />
+            <stop offset="70%" stop-color="#4a221b" />
+            <stop offset="82%" stop-color="#9a3412" />
+            <stop offset="92%" stop-color="#ea580c" />
+            <stop offset="100%" stop-color="#f59e0b" />
+          </linearGradient>
+
+          <!-- Sunset Radial Glow -->
+          <radialGradient id="sunGlowGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fef08a" stop-opacity="1" />
+            <stop offset="30%" stop-color="#fde047" stop-opacity="0.85" />
+            <stop offset="60%" stop-color="#f97316" stop-opacity="0.45" />
+            <stop offset="100%" stop-color="#ea580c" stop-opacity="0" />
+          </radialGradient>
+
+          <!-- Mountain Atmosphere Gradient -->
+          <linearGradient id="mountainFarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#1e1b4b" stop-opacity="0.8" />
+            <stop offset="100%" stop-color="#0f172a" />
+          </linearGradient>
+          <linearGradient id="mountainNearGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#172554" />
+            <stop offset="100%" stop-color="#064e3b" />
+          </linearGradient>
+
+          <!-- River Flow Gradient -->
+          <linearGradient id="introRiverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0284c7" stop-opacity="0.8" />
+            <stop offset="40%" stop-color="#0d9488" stop-opacity="0.85" />
+            <stop offset="70%" stop-color="#0369a1" stop-opacity="0.9" />
+            <stop offset="100%" stop-color="#1e3a8a" />
+          </linearGradient>
+
+          <!-- Cyber Cyan Glowing Line Gradients -->
+          <linearGradient id="cyberLineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00e5ff" />
+            <stop offset="50%" stop-color="#14b8a6" />
+            <stop offset="100%" stop-color="#10b981" />
+          </linearGradient>
+
+          <linearGradient id="hologramBeaconGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="#047857" stop-opacity="0.9" />
+            <stop offset="50%" stop-color="#10b981" stop-opacity="0.95" />
+            <stop offset="100%" stop-color="#00e5ff" stop-opacity="1" />
+          </linearGradient>
+
+          <!-- Vibrant Green Drone Medallion Gradient -->
+          <radialGradient id="droneGreenMedallionGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#4ade80" />
+            <stop offset="45%" stop-color="#22c55e" />
+            <stop offset="85%" stop-color="#15803d" />
+            <stop offset="100%" stop-color="#052e16" />
+          </radialGradient>
+
+          <linearGradient id="beaconBeamGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+            <stop offset="0%" stop-color="#00e5ff" stop-opacity="0.18" />
+            <stop offset="40%" stop-color="#14b8a6" stop-opacity="0.08" />
+            <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+          </linearGradient>
+
+          <!-- Precision Ambient Drop Shadow Filter -->
+          <filter id="neonCyanGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="1.5" result="blur1" />
+            <feGaussianBlur stdDeviation="3" result="blur2" />
+            <feMerge>
+              <feMergeNode in="blur2" />
+              <feMergeNode in="blur1" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+
+          <filter id="holoPinGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2" result="blur1" />
+            <feGaussianBlur stdDeviation="5" result="blur2" />
+            <feMerge>
+              <feMergeNode in="blur2" />
+              <feMergeNode in="blur1" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- Backup Vector Scenery Layer (Preserved for compatibility and fallback) -->
+        <g class="smart-village-vector-scenery" opacity="0" style="pointer-events: none;">
+          <!-- 1. SKY & SUNSET -->
+          <rect width="1600" height="900" fill="url(#duskSkyGrad)" />
+          
+          <!-- Setting Sun & Horizon Glow on Right -->
+          <circle cx="1320" cy="240" r="140" fill="url(#sunGlowGrad)" />
+          <ellipse cx="1320" cy="245" rx="55" ry="50" fill="#fffbeb" opacity="0.9" />
+
+          <!-- Distant Mountain Ranges -->
+          <path d="M 0 320 Q 200 240, 420 290 T 840 270 T 1250 250 T 1600 280 L 1600 450 L 0 450 Z" fill="url(#mountainFarGrad)" opacity="0.85" />
+          <path d="M 0 350 Q 280 290, 560 340 T 1120 310 T 1600 330 L 1600 500 L 0 500 Z" fill="url(#mountainNearGrad)" opacity="0.95" />
+
+        <!-- 2. AGRICULTURAL FIELDS & LANDSCAPE TERRACES -->
+        <g class="village-fields">
+          <!-- Terraced Green Farmland Plots -->
+          <polygon points="0,420 480,410 420,530 0,550" fill="#044d32" />
+          <polygon points="480,410 820,400 800,520 420,530" fill="#065f46" />
+          <polygon points="820,400 1200,395 1250,510 800,520" fill="#047857" />
+          <polygon points="1200,395 1600,410 1600,530 1250,510" fill="#064e3b" />
+
+          <!-- Midground Crop Fields -->
+          <polygon points="0,550 420,530 380,680 0,720" fill="#059669" />
+          <polygon points="420,530 800,520 780,690 380,680" fill="#047857" />
+          <polygon points="800,520 1250,510 1180,680 780,690" fill="#059669" />
+          <polygon points="1250,510 1600,530 1600,710 1180,680" fill="#044d32" />
+
+          <!-- Foreground Rich Crop Texture & Furrows -->
+          <polygon points="0,720 380,680 340,900 0,900" fill="#064e3b" />
+          <polygon points="380,680 780,690 750,900 340,900" fill="#043825" />
+          <polygon points="780,690 1180,680 1220,900 750,900" fill="#064e3b" />
+          <polygon points="1180,680 1600,710 1600,900 1220,900" fill="#032d1e" />
+
+          <!-- Subtle Furrow Hatching in Left Agriculture Plot -->
+          <path d="M 40,730 L 320,890 M 70,725 L 340,865 M 100,720 L 350,835 M 130,715 L 360,805" stroke="#10b981" stroke-width="1.5" opacity="0.3" />
+        </g>
+
+        <!-- 3. WATER POND / RIVER & STONE ARCH BRIDGE -->
+        <g class="village-river-group">
+          <!-- Winding River Stream -->
+          <path d="M 1250,500 C 1320,540, 1260,620, 1340,680 C 1420,740, 1310,830, 1400,900 L 1600,900 L 1600,500 Z" fill="url(#introRiverGrad)" opacity="0.9" />
+          <!-- Water Ripples & Sunset Glint -->
+          <path d="M 1320,560 Q 1380,550, 1440,565 M 1300,620 Q 1370,610, 1420,630 M 1350,710 Q 1430,700, 1490,720" stroke="#fef08a" stroke-width="2" opacity="0.45" stroke-linecap="round" />
+          
+          <!-- Village Stone Bridge with Lanterns -->
+          <g transform="translate(1220, 615)">
+            <rect x="0" y="0" width="130" height="18" rx="4" fill="#64748b" />
+            <path d="M 20,18 Q 40,32, 60,18 M 70,18 Q 90,32, 110,18" fill="none" stroke="#334155" stroke-width="6" />
+            <!-- Bridge Railing -->
+            <line x1="0" y1="2" x2="130" y2="2" stroke="#94a3b8" stroke-width="3" />
+            <circle cx="15" cy="0" r="4" fill="#fbbf24" filter="url(#neonCyanGlow)" />
+            <circle cx="115" cy="0" r="4" fill="#fbbf24" filter="url(#neonCyanGlow)" />
+          </g>
+        </g>
+
+        <!-- 4. VILLAGE ROADS -->
+        <g class="village-roads-group" opacity="0.9">
+          <!-- Main Village Arterial Road -->
+          <path d="M 0,630 Q 300,610, 520,590 T 800,580 T 1100,590 T 1300,625 T 1600,600" fill="none" stroke="#78716c" stroke-width="24" stroke-linecap="round" />
+          <path d="M 0,630 Q 300,610, 520,590 T 800,580 T 1100,590 T 1300,625 T 1600,600" fill="none" stroke="#fbbf24" stroke-width="2" stroke-dasharray="14 14" opacity="0.6" />
+          <!-- Road Cross-connector -->
+          <path d="M 800,430 L 800,580" fill="none" stroke="#78716c" stroke-width="18" stroke-linecap="round" />
+        </g>
+
+        <!-- 5. VILLAGE STRUCTURES & CIVIC LANDMARKS -->
+        <g class="village-structures">
+          <!-- Traditional Terracotta Village Houses (Left Cluster) -->
+          <!-- House 1 -->
+          <g transform="translate(240, 510)">
+            <rect x="0" y="15" width="70" height="42" fill="#e2e8f0" />
+            <polygon points="-8,16 35,-12 78,16" fill="#c2410c" />
+            <rect x="24" y="28" width="18" height="28" fill="#451a03" />
+            <rect x="8" y="24" width="12" height="12" fill="#fef08a" class="house-window-glow" />
+            <rect x="48" y="24" width="12" height="12" fill="#fef08a" class="house-window-glow" />
+          </g>
+          <!-- House 2 -->
+          <g transform="translate(340, 480)">
+            <rect x="0" y="14" width="60" height="38" fill="#f1f5f9" />
+            <polygon points="-6,15 30,-10 66,15" fill="#b91c1c" />
+            <rect x="10" y="22" width="10" height="10" fill="#fde047" class="house-window-glow" />
+            <rect x="38" y="22" width="10" height="10" fill="#fde047" class="house-window-glow" />
+          </g>
+          <!-- House 3 -->
+          <g transform="translate(430, 520)">
+            <rect x="0" y="16" width="75" height="44" fill="#cbd5e1" />
+            <polygon points="-8,18 38,-12 83,18" fill="#ea580c" />
+            <rect x="12" y="26" width="12" height="12" fill="#fef08a" class="house-window-glow" />
+            <rect x="50" y="26" width="12" height="12" fill="#fef08a" class="house-window-glow" />
+          </g>
+
+          <!-- Gram Mandir (Temple) with Shikhara Spire -->
+          <g transform="translate(860, 360)">
+            <rect x="0" y="50" width="80" height="50" fill="#fef3c7" stroke="#b45309" stroke-width="1.5" />
+            <rect x="15" y="32" width="50" height="20" fill="#fde68a" stroke="#b45309" stroke-width="1" />
+            <polygon points="18,34 40,-25 62,34" fill="#f59e0b" stroke="#78350f" stroke-width="1.5" />
+            <polygon points="26,34 40,-25 54,34" fill="#fbbf24" />
+            <circle cx="40" cy="-28" r="5" fill="#f59e0b" />
+            <line x1="40" y1="-28" x2="40" y2="-48" stroke="#78350f" stroke-width="2" />
+            <polygon points="40,-48 58,-40 40,-34" fill="#ea580c" />
+            <rect x="30" y="65" width="20" height="35" rx="10" fill="#78350f" />
+            <circle cx="20" cy="62" r="4" fill="#fef08a" filter="url(#neonCyanGlow)" />
+            <circle cx="60" cy="62" r="4" fill="#fef08a" filter="url(#neonCyanGlow)" />
+          </g>
+
+          <!-- Primary School Building ("School") -->
+          <g transform="translate(1010, 470)">
+            <rect x="0" y="10" width="140" height="52" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5" />
+            <rect x="45" y="0" width="50" height="14" fill="#0284c7" />
+            <line x1="50" y1="14" x2="50" y2="60" stroke="#0369a1" stroke-width="3" />
+            <line x1="90" y1="14" x2="90" y2="60" stroke="#0369a1" stroke-width="3" />
+            <rect x="12" y="24" width="16" height="16" fill="#fef08a" class="house-window-glow" />
+            <rect x="110" y="24" width="16" height="16" fill="#fef08a" class="house-window-glow" />
+            <text x="70" y="9" font-size="9" font-weight="700" fill="#ffffff" text-anchor="middle">SCHOOL</text>
+          </g>
+
+          <!-- Right Cluster Village Houses -->
+          <g transform="translate(1220, 500)">
+            <rect x="0" y="16" width="75" height="42" fill="#f8fafc" />
+            <polygon points="-8,18 38,-10 83,18" fill="#c2410c" />
+            <rect x="12" y="25" width="12" height="12" fill="#fef08a" class="house-window-glow" />
+            <rect x="48" y="25" width="12" height="12" fill="#fef08a" class="house-window-glow" />
+          </g>
+
+          <!-- Elevated Municipal Water Tank / Reservoir Tower -->
+          <g transform="translate(120, 420)">
+            <line x1="20" y1="60" x2="30" y2="10" stroke="#38bdf8" stroke-width="3" />
+            <line x1="60" y1="60" x2="50" y2="10" stroke="#38bdf8" stroke-width="3" />
+            <line x1="22" y1="35" x2="58" y2="35" stroke="#38bdf8" stroke-width="2" />
+            <rect x="15" y="-20" width="50" height="32" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="2" />
+            <ellipse cx="40" cy="-20" rx="25" ry="6" fill="#38bdf8" />
+            <circle cx="40" cy="-4" r="3" fill="#10b981" filter="url(#neonCyanGlow)" />
+          </g>
+
+          <!-- Farm Tractor in Field -->
+          <g transform="translate(290, 720)">
+            <rect x="12" y="10" width="30" height="16" rx="3" fill="#15803d" />
+            <rect x="4" y="4" width="14" height="22" rx="3" fill="#166534" />
+            <circle cx="8" cy="26" r="9" fill="#1e293b" stroke="#f59e0b" stroke-width="2" />
+            <circle cx="36" cy="28" r="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+            <line x1="16" y1="4" x2="16" y2="-4" stroke="#000" stroke-width="2" />
+          </g>
+
+          <!-- Scattered Village Trees & Palm Groves -->
+          <g class="village-trees">
+            <g transform="translate(80, 520)"><circle cx="0" cy="0" r="22" fill="#064e3b" /><circle cx="4" cy="-4" r="16" fill="#047857" /></g>
+            <g transform="translate(180, 560)"><circle cx="0" cy="0" r="24" fill="#065f46" /><circle cx="5" cy="-5" r="18" fill="#10b981" opacity="0.85" /></g>
+            <g transform="translate(530, 480)"><circle cx="0" cy="0" r="20" fill="#064e3b" /><circle cx="-3" cy="-3" r="14" fill="#059669" /></g>
+            <g transform="translate(740, 500)"><circle cx="0" cy="0" r="22" fill="#047857" /><circle cx="3" cy="-4" r="16" fill="#10b981" opacity="0.9" /></g>
+            <g transform="translate(980, 420)"><circle cx="0" cy="0" r="20" fill="#064e3b" /><circle cx="-2" cy="-3" r="15" fill="#059669" /></g>
+            <g transform="translate(1360, 460)"><circle cx="0" cy="0" r="25" fill="#044d32" /><circle cx="4" cy="-4" r="18" fill="#059669" /></g>
+            <g transform="translate(1480, 540)"><circle cx="0" cy="0" r="28" fill="#064e3b" /><circle cx="5" cy="-5" r="20" fill="#10b981" opacity="0.8" /></g>
+          </g>
+        </g>
+        <!-- End of Backup Vector Scenery Layer -->
+        </g>
+
+        <!-- 6. FUTURISTIC CYBER SMART GRID & CENTRAL HOLOGRAPHIC PIN -->
+        <g class="smart-grid-overlay" filter="url(#neonCyanGlow)">
+
+          <!-- Ground Radar Concentric Expanding Ripples -->
+          <g class="radar-ripples-group" transform="translate(800, 310)">
+            <ellipse cx="0" cy="0" rx="90" ry="90" class="radar-wave w1" />
+            <ellipse cx="0" cy="0" rx="145" ry="145" class="radar-wave w2" />
+            <ellipse cx="0" cy="0" rx="205" ry="205" class="radar-wave w3" />
+            <ellipse cx="0" cy="0" rx="115" ry="115" class="radar-compass-ring" />
+          </g>
+
+          <!-- 9 CONNECTING CYBER NETWORK CIRCUIT TRACKS -->
+          <g class="network-connecting-tracks">
+            <!-- 1. Pin -> Water Supply -->
+            <path d="M 740,290 C 600,240, 480,180, 368,153" class="village-net-track net-line" data-service="water" />
+            <path d="M 740,290 C 600,240, 480,180, 368,153" class="village-net-pulse" data-service="water" />
+
+            <!-- 2. Pin -> Health -->
+            <path d="M 770,260 C 740,210, 710,160, 680,126" class="village-net-track net-line" data-service="health" />
+            <path d="M 770,260 C 740,210, 710,160, 680,126" class="village-net-pulse" data-service="health" />
+
+            <!-- 3. Pin -> Education -->
+            <path d="M 830,260 C 880,210, 940,160, 1008,130" class="village-net-track net-line" data-service="education" />
+            <path d="M 830,260 C 880,210, 940,160, 1008,130" class="village-net-pulse" data-service="education" />
+
+            <!-- 4. Pin -> Sanitation -->
+            <path d="M 860,290 C 1000,240, 1130,190, 1256,162" class="village-net-track net-line" data-service="sanitation" />
+            <path d="M 860,290 C 1000,240, 1130,190, 1256,162" class="village-net-pulse" data-service="sanitation" />
+
+            <!-- 5. Pin -> Electricity -->
+            <path d="M 735,310 C 560,310, 380,290, 216,283" class="village-net-track net-line" data-service="electricity" />
+            <path d="M 735,310 C 560,310, 380,290, 216,283" class="village-net-pulse" data-service="electricity" />
+
+            <!-- 6. Pin -> Agriculture -->
+            <path d="M 735,315 C 640,325, 540,330, 440,333" class="village-net-track net-line" data-service="agriculture" />
+            <path d="M 735,315 C 640,325, 540,330, 440,333" class="village-net-pulse" data-service="agriculture" />
+
+            <!-- 7. Pin -> Roads -->
+            <path d="M 865,315 C 1040,325, 1210,330, 1384,333" class="village-net-track net-line" data-service="roads" />
+            <path d="M 865,315 C 1040,325, 1210,330, 1384,333" class="village-net-pulse" data-service="roads" />
+
+            <!-- 8. Pin -> Public Grievances -->
+            <path d="M 745,335 C 580,390, 420,440, 272,490" class="village-net-track net-line" data-service="grievances" />
+            <path d="M 745,335 C 580,390, 420,440, 272,490" class="village-net-pulse" data-service="grievances" />
+
+            <!-- 9. Pin -> Community -->
+            <path d="M 855,335 C 1030,390, 1210,440, 1384,490" class="village-net-track net-line" data-service="community" />
+            <path d="M 855,335 C 1030,390, 1210,440, 1384,490" class="village-net-pulse" data-service="community" />
+          </g>
+
+          <!-- CENTRAL HOLOGRAPHIC PIN BEACON (EMERALD MEDALLION IN DRONE VIEW) -->
+          <g class="holographic-pin-assembly" transform="translate(800, 310)" filter="url(#holoPinGlow)">
+            <!-- Vertical Ascending Light Beam -->
+            <polygon points="-25,40 25,40 40,-160 -40,-160" fill="url(#beaconBeamGrad)" class="hologram-beam" />
+
+            <!-- Pin Base Contact -->
+            <ellipse cx="0" cy="0" rx="72" ry="72" fill="rgba(0, 229, 255, 0.45)" class="net-node n-base" />
+
+            <!-- Radiant Green Sphere / Medallion Shell -->
+            <circle cx="0" cy="0" r="70" 
+                    fill="url(#droneGreenMedallionGrad)" 
+                    stroke="url(#cyberLineGrad)" 
+                    stroke-width="3" 
+                    class="hologram-pin-shell" />
+
+            <!-- Circular Inner Holographic Lens -->
+            <circle cx="0" cy="0" r="32" fill="url(#hologramBeaconGrad)" stroke="#ffffff" stroke-width="2.5" class="net-node n-center" />
+
+            <!-- Radiant Gramlink Seedling / Plant Logo Symbol -->
+            <g class="intro-leaf-group">
+              <path class="intro-leaf-shape"
+                    d="M 0,14 C -6,2 -18,-8 -15,-20 C -12,-30 0,-34 0,-34 C 0,-34 12,-30 15,-20 C 18,-8 6,2 0,14 Z"
+                    fill="#ffffff"
+                    filter="url(#neonCyanGlow)" />
+              <path class="intro-leaf-stem"
+                    d="M 0,16 L 0,-24"
+                    stroke="#ffffff"
+                    stroke-width="2.5"
+                    stroke-linecap="round" />
+              <path class="intro-leaf-veins"
+                    d="M 0,-4 Q -8,-10 -12,-16 M 0,-4 Q 8,-10 12,-16"
+                    stroke="#ffffff"
+                    stroke-width="1.8"
+                    stroke-linecap="round" />
+            </g>
+
+            <!-- Hologram Corona Ring -->
+            <circle cx="0" cy="0" r="78" fill="none" stroke="rgba(0, 229, 255, 0.6)" stroke-width="1.5" stroke-dasharray="8 6" class="pin-corona-spin" />
+          </g>
+
+        </g>
+      </svg>
+
+      <!-- 7. THE 9 ANIMATED VILLAGE SERVICE BADGES (Interactive DOM Overlay) -->
+      <div class="village-services-overlay" aria-label="Smart Village Connected Services">
+
+        <!-- 1. Water Supply (Top-Left) -->
+        <div class="village-service-badge node-water" data-service="water" style="--delay: 0.25s; --accent: #00e5ff;">
+          <div class="badge-icon-box">
+            <span class="badge-icon" aria-hidden="true">💧</span>
+            <span class="badge-pulse-ring"></span>
+          </div>
+          <div class="badge-label-pill">
+            <span class="badge-text" data-i18n="intro_svc_water">Water Supply</span>
+          </div>
+        </div>
+
+        <!-- 2. Health (Top Center-Left) -->
+        <div class="village-service-badge node-health" data-service="health" style="--delay: 0.45s; --accent: #10b981;">
+          <div class="badge-icon-box">
+            <span class="badge-icon" aria-hidden="true">🩺</span>
+            <span class="badge-pulse-ring"></span>
+          </div>
+          <div class="badge-label-pill">
+            <span class="badge-text" data-i18n="intro_svc_health">Health</span>
+          </div>
+        </div>
+
+        <!-- 3. Education (Top Center-Right) -->
+        <div class="village-service-badge node-education" data-service="education" style="--delay: 0.65s; --accent: #f59e0b;">
+          <div class="badge-icon-box">
+            <span class="badge-icon" aria-hidden="true">🎓</span>
+            <span class="badge-pulse-ring"></span>
+          </div>
+          <div class="badge-label-pill">
+            <span class="badge-text" data-i18n="intro_svc_education">Education</span>
+          </div>
+        </div>
+
+        <!-- 4. Sanitation (Top-Right) -->
+        <div class="village-service-badge node-sanitation" data-service="sanitation" style="--delay: 0.85s; --accent: #a855f7;">
+          <div class="badge-icon-box">
+            <span class="badge-icon" aria-hidden="true">🗑️</span>
+            <span class="badge-pulse-ring"></span>
+          </div>
+          <div class="badge-label-pill">
+            <span class="badge-text" data-i18n="intro_svc_sanitation">Sanitation</span>
+          </div>
+        </div>
+
+        <!-- 5. Electricity (Mid-Left) -->
+        <div class="village-service-badge node-electricity" data-service="electricity" style="--delay: 1.05s; --accent: #ec4899;">
+          <div class="badge-icon-box">
+            <span class="badge-icon" aria-hidden="true">💡</span>
+            <span class="badge-pulse-ring"></span>
+          </div>
+          <div class="badge-label-pill">
+            <span class="badge-text" data-i18n="intro_svc_electricity">Electricity</span>
+          </div>
+        </div>
+
+        <!-- 6. Agriculture (Mid Center-Left) -->
+        <div class="village-service-badge node-agriculture" data-service="agriculture" style="--delay: 1.25s; --accent: #22c55e;">
+          <div class="badge-icon-box">
+            <span class="badge-icon" aria-hidden="true">🌱</span>
+            <span class="badge-pulse-ring"></span>
+          </div>
+          <div class="badge-label-pill">
+            <span class="badge-text" data-i18n="intro_svc_agriculture">Agriculture</span>
+          </div>
+        </div>
+
+        <!-- 7. Roads (Mid-Right) -->
+        <div class="village-service-badge node-roads" data-service="roads" style="--delay: 1.45s; --accent: #f97316;">
+          <div class="badge-icon-box">
+            <span class="badge-icon" aria-hidden="true">🛣️</span>
+            <span class="badge-pulse-ring"></span>
+          </div>
+          <div class="badge-label-pill">
+            <span class="badge-text" data-i18n="intro_svc_roads">Roads</span>
+          </div>
+        </div>
+
+        <!-- 8. Public Grievances (Bottom-Left) -->
+        <div class="village-service-badge node-grievances" data-service="grievances" style="--delay: 1.65s; --accent: #06b6d4;">
+          <div class="badge-icon-box">
+            <span class="badge-icon" aria-hidden="true">👥</span>
+            <span class="badge-pulse-ring"></span>
+          </div>
+          <div class="badge-label-pill">
+            <span class="badge-text" data-i18n="intro_svc_grievances">Public Grievances</span>
+          </div>
+        </div>
+
+        <!-- 9. Community (Bottom-Right) -->
+        <div class="village-service-badge node-community" data-service="community" style="--delay: 1.85s; --accent: #3b82f6;">
+          <div class="badge-icon-box">
+            <span class="badge-icon" aria-hidden="true">👥</span>
+            <span class="badge-pulse-ring"></span>
+          </div>
+          <div class="badge-label-pill">
+            <span class="badge-text" data-i18n="intro_svc_community">Community</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 8. CENTERSTAGE BRANDING & CALL-TO-ACTION HUB (Bottom Center) -->
+      <div class="intro-branding-hub">
+        <!-- Brand Title: Gramlink 360 -->
+        <div class="intro-title" aria-label="Gramlink 360">
+          <span class="intro-word">
+            <span class="intro-char" style="--i: 0;">G</span>
+            <span class="intro-char" style="--i: 1;">r</span>
+            <span class="intro-char" style="--i: 2;">a</span>
+            <span class="intro-char" style="--i: 3;">m</span>
+            <span class="intro-char" style="--i: 4;">l</span>
+            <span class="intro-char" style="--i: 5;">i</span>
+            <span class="intro-char" style="--i: 6;">n</span>
+            <span class="intro-char" style="--i: 7;">k</span>
+          </span>
+          <span class="intro-word">
+            <span class="intro-char accent" style="--i: 8;">3</span>
+            <span class="intro-char accent" style="--i: 9;">6</span>
+            <span class="intro-char accent" style="--i: 10;">0</span>
+          </span>
+        </div>
+
+        <!-- Taglines -->
+        <p class="intro-tagline" data-i18n="intro_smart_tagline">Smart Village, Better Living</p>
+        <span data-i18n="intro_tagline" style="display:none;" aria-hidden="true">Smart Village, Better Living</span>
+        <p class="intro-marathi-motto" data-i18n="intro_motto">माझे गाव • माझी जबाबदारी • आपला विकास</p>
+        <span class="intro-subtagline" data-i18n="intro_subtagline" style="display:none;" aria-hidden="true">Connecting Villages, Empowering Communities • Smart Village Initiative</span>
+
+        <!-- Elegant Intro Progress Track -->
+        <div class="intro-progress-track">
+          <div class="intro-progress-bar"></div>
+        </div>
+
+        <!-- Glowing Gradient Get Started Action Button -->
+        <div class="intro-action-wrapper" id="introActionWrapper">
+          <button id="getStartedBtn" class="intro-get-started-btn" aria-label="Get Started">
+            <span data-i18n="intro_get_started">Get Started</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Language Selector -->
+        <div class="intro-lang-switcher" aria-label="Language Selector">
+          <span class="intro-lang-globe" aria-hidden="true">🌐</span>
+          <button type="button" class="lang-btn intro-lang-btn" data-lang="mr">मराठी</button>
+          <span class="intro-lang-sep">|</span>
+          <button type="button" class="lang-btn intro-lang-btn active" data-lang="en">English</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 9. SLEEK SMART VILLAGE SERVICE DETAIL MODAL (Micro-Interaction Popup) -->
+    <div id="introServiceModal" class="intro-service-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="introModalTitle">
+      <div class="intro-modal-backdrop" id="introModalBackdrop"></div>
+      <div class="intro-modal-card" role="document">
+        <button type="button" class="intro-modal-close" id="introModalClose" aria-label="Close modal">&times;</button>
+        <div class="intro-modal-header">
+          <div class="intro-modal-icon-box" id="introModalIconBox">
+            <span class="intro-modal-icon" id="introModalIcon">💧</span>
+            <span class="intro-modal-pulse-ring"></span>
+          </div>
+          <div class="intro-modal-heading-text">
+            <h3 class="intro-modal-title" id="introModalTitle">Water Supply</h3>
+            <p class="intro-modal-status" id="introModalStatus">
+              <span class="status-pulse-dot"></span>
+              <span id="introModalStatusText">Live Monitoring Active</span>
+            </p>
+          </div>
+        </div>
+        <p class="intro-modal-desc" id="introModalDesc">
+          IoT flow meters and automated supply schedules for clean drinking water across all village wards.
+        </p>
+        <div class="intro-modal-metrics" id="introModalMetrics">
+          <div class="intro-metric-chip">
+            <span class="metric-val" id="introMetric1Val">99.4%</span>
+            <span class="metric-lbl" id="introMetric1Lbl">Uptime</span>
+          </div>
+          <div class="intro-metric-chip">
+            <span class="metric-val" id="introMetric2Val">12 Wards</span>
+            <span class="metric-lbl" id="introMetric2Lbl">Connected</span>
+          </div>
+        </div>
+        <div class="intro-modal-actions">
+          <button type="button" class="intro-modal-action-btn" id="introModalActionBtn">
+            <span id="introModalActionText">Explore Service</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+          <button type="button" class="intro-modal-dismiss-btn" id="introModalDismissBtn">Close</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       TOP NOTICE & EMERGENCY HELPLINE STRIP
+       ========================================================================= -->
+  <div class="top-notice-strip">
+    <div class="container">
+      <div class="emergency-pills">
+        <span style="font-weight: 700; color: #fff;" data-i18n="footer_helpline">Emergency Helplines:</span>
+        <a href="tel:108" class="emergency-pill">🚑 Ambulance: 108</a>
+        <a href="tel:1091" class="emergency-pill">🛡️ Women Helpline: 1091</a>
+        <a href="tel:1551" class="emergency-pill">🌾 Kisan Call Centre: 1551</a>
+        <a href="tel:112" class="emergency-pill">👮 Police: 112</a>
+      </div>
+      <div class="lang-switch-wrapper">
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle Light / Dark Mode" data-i18n-title="theme_toggle_label">
+          <span class="theme-icon" aria-hidden="true">🌙</span>
+          <span class="theme-text" data-i18n="theme_btn_dark">Dark</span>
+        </button>
+        <button class="replay-intro-btn" id="replayIntroBtn" title="Replay animated intro" aria-label="Replay intro animation" data-i18n="intro_replay">
+          ✨ Replay Intro
+        </button>
+        <span style="font-size: 0.75rem; color: #a4c4b6; margin-left: 0.35rem;">भाषा / Language:</span>
+        <button class="lang-btn active" data-lang="en">English</button>
+        <button class="lang-btn" data-lang="mr">मराठी</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       STICKY NAVIGATION HEADER
+       ========================================================================= -->
+  <header class="site-header">
+    <div class="container header-container">
+      <!-- Brand Logo -->
+      <a href="index.html" class="brand-logo" aria-label="Gramlink 360 Home">
+        <div class="brand-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Gramlink<span>360</span></h1>
+          <small>ग्रामपंचायत शिवराजपूर • Smart Village Portal</small>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Menu -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link active" data-i18n="nav_home">Home</a></li>
+          <li><a href="pages/village-dashboard.html" class="nav-link" data-i18n="nav_village_pulse">Village Pulse</a></li>
+          <li><a href="pages/village-heatmap.html" class="nav-link" data-i18n="nav_heatmap">Village Heatmap</a></li>
+          <li><a href="pages/village-polls.html" class="nav-link" data-i18n="nav_polls">Public Polls</a></li>
+          <li><a href="pages/services.html" class="nav-link" data-i18n="nav_services">Services</a></li>
+          <li><a href="pages/complaint-submit.html" class="nav-link" data-i18n="nav_submit">File Complaint</a></li>
+          <li><a href="pages/complaint-track.html" class="nav-link" data-i18n="nav_track">Track Status</a></li>
+          <li><a href="pages/announcements.html" class="nav-link" data-i18n="nav_announcements">Announcements</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions / Auth -->
+      <div class="header-actions">
+        <div class="nav-auth-slot">
+          <!-- Dynamically populated by js/main.js -->
+          <a href="pages/auth.html" class="btn btn-primary btn-sm" data-i18n="nav_login">Login / Register</a>
+        </div>
+        <button class="mobile-toggle-btn" aria-label="Open Mobile Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <div class="mobile-drawer-content">
+      <div class="mobile-drawer-header">
+        <div class="brand-text">
+          <h2 style="font-size: 1.25rem;">Gramlink<span>360</span></h2>
+          <small>Smart Village Services</small>
+        </div>
+        <button class="mobile-drawer-close btn btn-secondary btn-sm" aria-label="Close Menu">✕</button>
+      </div>
+      <ul class="mobile-nav-links">
+        <li><a href="index.html" class="mobile-nav-link active" data-i18n="nav_home">🏠 Home</a></li>
+        <li><a href="pages/village-dashboard.html" class="mobile-nav-link" data-i18n="nav_village_pulse">📊 Village Pulse & Metrics</a></li>
+        <li><a href="pages/village-heatmap.html" class="mobile-nav-link" data-i18n="nav_heatmap">🗺️ Village Heatmap</a></li>
+        <li><a href="pages/village-polls.html" class="mobile-nav-link" data-i18n="nav_polls">🗳️ Public Polls</a></li>
+        <li><a href="pages/services.html" class="mobile-nav-link" data-i18n="nav_services">🏛️ Village Services Directory</a></li>
+        <li><a href="pages/complaint-submit.html" class="mobile-nav-link" data-i18n="nav_submit">✍️ File a Complaint</a></li>
+        <li><a href="pages/complaint-track.html" class="mobile-nav-link" data-i18n="nav_track">🔍 Track Complaint Token</a></li>
+        <li><a href="pages/announcements.html" class="mobile-nav-link" data-i18n="nav_announcements">📢 Announcements & Gram Sabha</a></li>
+        <li style="margin-top: 1rem; border-top: 1px solid var(--surface-subtle); padding-top: 1rem;">
+          <a href="pages/resident-dashboard.html" class="mobile-nav-link">👤 Resident Portal</a>
+        </li>
+        <li>
+          <a href="pages/admin-dashboard.html" class="mobile-nav-link">⚙️ Admin Control Room</a>
+        </li>
+      </ul>
+      <div style="margin-top: auto; padding-top: 1.5rem;">
+        <a href="pages/auth.html" class="btn btn-primary" style="width: 100%;">Sign In / Register</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       HERO SECTION
+       ========================================================================= -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <!-- Left Content Column -->
+      <div class="hero-content">
+        <div class="hero-badge anim-fade-up">
+          <span class="pulse-dot"></span>
+          <span data-i18n="hero_badge">Official Digital Panchayat Portal</span>
+          <span class="badge badge-demo">Demo Model</span>
+        </div>
+
+        <h1 class="hero-title anim-fade-up">
+          <span data-i18n="hero_title_1">One Village. Every Service.</span><br>
+          <span class="highlight" data-i18n="hero_title_2">One Digital Future.</span>
+        </h1>
+
+        <p class="hero-desc anim-fade-up" data-i18n="hero_desc">
+          Empowering every resident of Gram Panchayat Shivrajpur with instant access to public utilities, fast grievance resolution with 48-hour SLAs, and direct community announcements.
+        </p>
+
+        <div class="hero-actions anim-fade-up">
+          <a href="pages/services.html" class="btn btn-primary btn-lg" data-i18n="hero_btn_services">
+            Explore Services
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+          <a href="pages/complaint-track.html" class="btn btn-secondary btn-lg" data-i18n="hero_btn_track">
+            Track Complaint
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </a>
+        </div>
+
+        <!-- Trust & Impact Metrics -->
+        <div class="hero-trust-metrics anim-fade-up">
+          <div class="trust-item">
+            <h4>94.2%</h4>
+            <p data-i18n="hero_stat_resolved">Resolved Rate</p>
+          </div>
+          <div class="trust-item">
+            <h4>&lt; 36 hrs</h4>
+            <p data-i18n="hero_stat_sla">Avg SLA Response</p>
+          </div>
+          <div class="trust-item">
+            <h4>2,840+</h4>
+            <p data-i18n="hero_stat_families">Registered Families</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Visual Composition Column -->
+      <div class="hero-visual-card anim-fade-up">
+        <div class="hero-main-card">
+          <!-- Card Header -->
+          <div class="card-header-village">
+            <div class="village-meta">
+              <div class="village-avatar">🌾</div>
+              <div>
+                <h4 style="font-size: 1.05rem; margin-bottom: 0.1rem;" data-i18n="hero_gp_name">Gram Panchayat Shivrajpur</h4>
+                <p style="font-size: 0.785rem; color: var(--text-subtle);" data-i18n="hero_gp_loc">Taluka: Baramati • Dist: Pune</p>
+              </div>
+            </div>
+            <span class="badge badge-resolved" data-i18n="hero_live_badge">● Live Operational</span>
+          </div>
+
+          <!-- Village Image with Overlay -->
+          <div class="hero-visual-image-box">
+            <img src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80" alt="Rural Indian Community and Greenery" loading="eager">
+            <div class="hero-image-overlay">
+              <span data-i18n="hero_initiative">Smart Village Initiative • Digital India Mission</span>
+            </div>
+          </div>
+
+          <!-- Live Sample Ticket Preview -->
+          <div class="floating-ticket-preview">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="width: 38px; height: 38px; border-radius: var(--radius-sm); background: var(--status-progress-bg); color: var(--status-progress-text); display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                💧
+              </div>
+              <div>
+                <div style="font-size: 0.825rem; font-weight: 700; color: var(--primary-900);" data-i18n="hero_ticket_title">Handpump Line Repair</div>
+                <div style="font-size: 0.725rem; color: var(--text-subtle);">Token: <strong>GL-2026-1042</strong> • Ward 2</div>
+              </div>
+            </div>
+            <span class="badge badge-progress" data-i18n="status_in_progress">In Progress</span>
+          </div>
+
+          <!-- Floating Badges -->
+          <div class="floating-pill-badge top-right anim-float">
+            <span style="font-size: 1.25rem;">⏱️</span>
+            <div>
+              <strong style="font-size: 0.85rem; display: block; color: var(--primary-900);" data-i18n="hero_badge_sla">48-Hour SLA</strong>
+              <small style="font-size: 0.725rem; color: var(--text-subtle);" data-i18n="hero_badge_sla_sub">Guaranteed Redressal</small>
+            </div>
+          </div>
+
+          <div class="floating-pill-badge bottom-left anim-float-slow">
+            <span style="font-size: 1.25rem;">📜</span>
+            <div>
+              <strong style="font-size: 0.85rem; display: block; color: var(--primary-900);" data-i18n="hero_badge_audit">Social Audit</strong>
+              <small style="font-size: 0.725rem; color: var(--text-subtle);" data-i18n="hero_badge_audit_sub">100% Public Transparency</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       QUICK TRACK TOKEN WIDGET (ELEVATED BAR)
+       ========================================================================= -->
+  <section class="quick-track-section">
+    <div class="container">
+      <div class="track-widget-box reveal">
+        <div class="track-widget-info">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+            <span style="font-size: 1.25rem;">🔍</span>
+            <h3 data-i18n="track_widget_title">Track Any Village Complaint Instantly</h3>
+          </div>
+          <p style="font-size: 0.885rem; margin: 0;" data-i18n="track_widget_desc">
+            Enter your unique 10-character grievance reference token (e.g., GL-2026-1042)
+          </p>
+        </div>
+
+        <form class="quick-track-form track-widget-form">
+          <input type="text" class="input-track-token" placeholder="Enter Token (e.g. GL-2026-1042)" data-i18n-placeholder="track_input_placeholder" required>
+          <button type="submit" class="btn btn-gold" data-i18n="track_btn">
+            Check Status
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       FEATURED SERVICES SECTION
+       ========================================================================= -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag" data-i18n="services_tag">Village Directory</span>
+        <h2 data-i18n="services_title">Essential Public & Citizen Services</h2>
+        <p class="text-lead" data-i18n="services_desc">
+          Direct access to local departments, welfare desks, and community infrastructure.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <!-- Service Card 1 -->
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon-box">🩺</div>
+          <h3 data-i18n="svc1_title">Primary Health & OPD</h3>
+          <p data-i18n="svc1_desc">Free primary health consultations, maternal care, routine infant immunizations, and essential medicine stock check.</p>
+          <div class="service-footer">
+            <span data-i18n="svc1_time">Daily 8AM – 2PM</span>
+            <a href="pages/services.html" class="btn btn-secondary btn-sm" data-i18n="btn_details">Details →</a>
+          </div>
+        </div>
+
+        <!-- Service Card 2 -->
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon-box">🌾</div>
+          <h3 data-i18n="svc2_title">Krishi Seva & Soil Health</h3>
+          <p data-i18n="svc2_desc">Free soil testing lab access, certified hybrid seed quotas, organic fertilizer subsidies, and agricultural machinery rental desk.</p>
+          <div class="service-footer">
+            <span data-i18n="svc2_time">Kisan Bhawan • Ward 4</span>
+            <a href="pages/services.html" class="btn btn-secondary btn-sm" data-i18n="btn_details">Details →</a>
+          </div>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-icon-box">💧</div>
+          <h3 data-i18n="svc3_title">Drinking Water Supply</h3>
+          <p data-i18n="svc3_desc">Overhead reservoir timing alerts, community water purifier filter updates, and rapid handpump breakdown repair reporting.</p>
+          <div class="service-footer">
+            <span data-i18n="svc3_time">24/7 Water Desk</span>
+            <a href="pages/services.html" class="btn btn-secondary btn-sm" data-i18n="btn_details">Details →</a>
+          </div>
+        </div>
+
+        <!-- Service Card 4 -->
+        <div class="service-card reveal reveal-delay-4">
+          <div class="service-icon-box">⚡</div>
+          <h3 data-i18n="svc4_title">Street Lighting & Grid</h3>
+          <p data-i18n="svc4_desc">Solar street lamp repair requests, agricultural pump line voltage reporting, and lineman assistance for transformer issues.</p>
+          <div class="service-footer">
+            <span data-i18n="svc4_time">MSEDCL Sub-Station</span>
+            <a href="pages/services.html" class="btn btn-secondary btn-sm" data-i18n="btn_details">Details →</a>
+          </div>
+        </div>
+
+        <!-- Service Card 5 -->
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon-box">📜</div>
+          <h3 data-i18n="svc5_title">Panchayat Certificates</h3>
+          <p data-i18n="svc5_desc">Online application and verification for Birth, Death, Residence, Below Poverty Line (BPL), and NOC certificates.</p>
+          <div class="service-footer">
+            <span data-i18n="svc5_time">Gram Sevak Desk</span>
+            <a href="pages/services.html" class="btn btn-secondary btn-sm" data-i18n="btn_details">Details →</a>
+          </div>
+        </div>
+
+        <!-- Service Card 6 -->
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon-box">🍞</div>
+          <h3 data-i18n="svc6_title">Fair Price Ration (PDS)</h3>
+          <p data-i18n="svc6_desc">Monthly subsidized grain entitlement quota tracker, shop opening schedules, and grievance desk for ration distribution.</p>
+          <div class="service-footer">
+            <span data-i18n="svc6_time">1st–20th of Month</span>
+            <a href="pages/services.html" class="btn btn-secondary btn-sm" data-i18n="btn_details">Details →</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 3rem;" class="reveal">
+        <a href="pages/services.html" class="btn btn-primary btn-lg" data-i18n="btn_browse_all_services">
+          Browse All 14 Village Services & Contacts →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       HOW IT WORKS (CITIZEN GRIEVANCE JOURNEY)
+       ========================================================================= -->
+  <section class="section" style="background: var(--surface-subtle);">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag gold" data-i18n="how_tag">Accountable Governance</span>
+        <h2 data-i18n="how_title">How Gramlink 360 Solves Your Village Issues</h2>
+        <p class="text-lead" data-i18n="how_subtitle">
+          From reporting to photo-verified resolution—every step is tracked transparently with zero intermediaries.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+        <!-- Step 1 -->
+        <div class="pulse-card reveal reveal-delay-1" style="border-top: 4px solid var(--primary-600);">
+          <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-100); margin-bottom: 0.5rem;">01</div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="step1_title">Submit in 60 Seconds</h3>
+          <p style="font-size: 0.925rem;" data-i18n="step1_desc">Pick your department (Water, Electricity, Sanitation), select your ward, write the issue or snap a photo. No paperwork required.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="pulse-card reveal reveal-delay-2" style="border-top: 4px solid var(--gold-500);">
+          <div style="font-size: 2.5rem; font-weight: 800; color: var(--gold-100); margin-bottom: 0.5rem;">02</div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="step2_title">Instant Token & SLA Timer</h3>
+          <p style="font-size: 0.925rem;" data-i18n="step2_desc">Receive a unique 10-digit tracking token (e.g. <code>GL-2026-XXXX</code>). The system initiates an official 48-hour SLA countdown timer.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="pulse-card reveal reveal-delay-3" style="border-top: 4px solid var(--primary-500);">
+          <div style="font-size: 2.5rem; font-weight: 800; color: var(--primary-100); margin-bottom: 0.5rem;">03</div>
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;" data-i18n="step3_title">Officer Action & Photo Proof</h3>
+          <p style="font-size: 0.925rem;" data-i18n="step3_desc">The assigned field officer (Gram Sevak or Lineman) repairs the issue on ground and uploads resolution photo proof to the public portal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       VILLAGE PROBLEM HEATMAP PROMO SECTION
+       ========================================================================= -->
+  <section class="section" style="padding-top: 1rem; padding-bottom: 1rem;">
+    <div class="container">
+      <div class="heatmap-promo-banner reveal">
+        <div>
+          <span class="badge" style="background: rgba(16, 185, 129, 0.25); color: #a7f3d0; border: 1px solid rgba(52, 211, 153, 0.4); margin-bottom: 0.75rem;" data-i18n="heatmap_home_card_tag">
+            Spatial Analytics
+          </span>
+          <h2 style="font-size: 2rem; margin-bottom: 0.75rem; color: #ffffff;" data-i18n="heatmap_home_card_title">
+            Village Problem Heatmap
+          </h2>
+          <p style="font-size: 1.05rem; line-height: 1.6; color: #d1fae5; margin-bottom: 1.5rem; max-width: 580px;" data-i18n="heatmap_home_card_desc">
+            Interactive GIS heatmap of ward issues across water supply, roads, sanitation, and streetlights.
+          </p>
+          <a href="pages/village-heatmap.html" class="btn btn-primary" style="background: #10b981; border-color: #34d399;" data-i18n="heatmap_home_card_btn">
+            Explore Heatmap →
+          </a>
+        </div>
+        <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius-lg); padding: 1.5rem; backdrop-filter: blur(8px);">
+          <div style="font-size: 0.825rem; font-weight: 700; color: #6ee7b7; text-transform: uppercase; margin-bottom: 0.75rem;">
+            🗺️ Live Spatial Telemetry
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.875rem; color: #e2f1ec;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span>💧 Water Supply Hotspots</span>
+              <span class="badge badge-resolved">Live GIS</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span>🛣️ Roads & Culvert Issues</span>
+              <span class="badge badge-progress">Mapped</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span>💡 Solar Streetlight Density</span>
+              <span class="badge badge-pending">Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       VILLAGE PUBLIC POLLS PROMO SECTION
+       ========================================================================= -->
+  <section class="section" style="padding-top: 1rem; padding-bottom: 2rem;">
+    <div class="container">
+      <div class="heatmap-promo-banner reveal" style="background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%); border-color: rgba(52, 211, 153, 0.4);">
+        <div>
+          <span class="badge" style="background: rgba(16, 185, 129, 0.25); color: #a7f3d0; border: 1px solid rgba(52, 211, 153, 0.4); margin-bottom: 0.75rem;" data-i18n="polls_home_tag">
+            Civic Voice
+          </span>
+          <h2 style="font-size: 2rem; margin-bottom: 0.75rem; color: #ffffff;" data-i18n="polls_home_title">
+            Village Public Polls
+          </h2>
+          <p style="font-size: 1.05rem; line-height: 1.6; color: #d1fae5; margin-bottom: 1.5rem; max-width: 580px;" data-i18n="polls_home_desc">
+            Vote on upcoming infrastructure, health timings, and civic priorities with real-time tally tracking.
+          </p>
+          <a href="pages/village-polls.html" class="btn btn-primary" style="background: #10b981; border-color: #34d399;" data-i18n="polls_home_btn">
+            Vote in Village Polls →
+          </a>
+        </div>
+        <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: var(--radius-lg); padding: 1.5rem; backdrop-filter: blur(8px);">
+          <div style="font-size: 0.825rem; font-weight: 700; color: #6ee7b7; text-transform: uppercase; margin-bottom: 0.75rem;">
+            🗳️ Transparent Community Voting
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.875rem; color: #e2f1ec;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span>1 Vote Per Citizen</span>
+              <span class="badge badge-resolved">Secure RLS</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span>Civic Decision Tallies</span>
+              <span class="badge badge-progress">Live Counts</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span>Shivrajpur Demonstration</span>
+              <span class="badge badge-demo">Prototype</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       RECENT ANNOUNCEMENTS SECTION
+       ========================================================================= -->
+  <section class="section">
+    <div class="container">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;" class="reveal">
+        <div>
+          <span class="section-tag" data-i18n="nav_announcements">Announcements</span>
+          <h2 data-i18n="recent_ann_title">Latest Gram Sabha & Village Notices</h2>
+        </div>
+        <a href="pages/announcements.html" class="btn btn-secondary" data-i18n="btn_view_all_notices">View All Notices →</a>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1.25rem;" id="homeAnnouncementsContainer">
+        <!-- Rendered dynamically by script or fallback -->
+        <div class="announcement-card reveal reveal-delay-1">
+          <div class="announcement-date-badge">
+            <span class="day">15</span>
+            <span class="month">Oct</span>
+          </div>
+          <div style="flex: 1;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.35rem; flex-wrap: wrap;">
+              <span class="badge badge-urgent" data-i18n="ann_badge_urgent">Urgent Notice</span>
+              <span style="font-size: 0.8rem; color: var(--text-subtle);">Gram Sabha • 10:00 AM</span>
+            </div>
+            <h3 style="font-size: 1.15rem; margin-bottom: 0.35rem;">Annual Pre-Diwali Gram Sabha Budget Meeting</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">Discussion of Ward 1 to 5 development budgets, approval of new PM Awas Yojana beneficiary lists, and water conservation audit.</p>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--primary-700);">Published by: Sarpanch Sunita Deshmukh</span>
+          </div>
+        </div>
+
+        <div class="announcement-card reveal reveal-delay-2">
+          <div class="announcement-date-badge">
+            <span class="day">12</span>
+            <span class="month">Oct</span>
+          </div>
+          <div style="flex: 1;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.35rem;">
+              <span class="badge badge-progress">Agriculture</span>
+              <span style="font-size: 0.8rem; color: var(--text-subtle);">Kisan Kendra • 09:00 AM</span>
+            </div>
+            <h3 style="font-size: 1.15rem; margin-bottom: 0.35rem;">Free Rabi Season High-Yield Seed Distribution</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">Government subsidized Gram and Wheat seeds (Phule Vikram & Samadhan) will be distributed to small & marginal farmers. Bring 7/12 extract.</p>
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--primary-700);">Published by: Agriculture Assistant Shinde</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       HIGH-IMPACT CALL TO ACTION
+       ========================================================================= -->
+  <section class="section" style="padding: 0;">
+    <div class="container">
+      <div style="background: linear-gradient(135deg, var(--primary-900), var(--primary-700)); border-radius: var(--radius-xl); padding: 3.5rem 3rem; color: #fff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem;" class="reveal">
+        <div style="max-width: 620px;">
+          <span class="badge" style="background: rgba(255,255,255,0.15); color: #fff; margin-bottom: 1rem;" data-i18n="cta_tag">Citizen First e-Governance</span>
+          <h2 style="color: #fff; margin-bottom: 1rem;" data-i18n="cta_title">Have an unresolved issue in your ward?</h2>
+          <p style="color: #cde2d8; font-size: 1.05rem; margin: 0;" data-i18n="cta_desc">
+            Report faulty streetlights, broken water taps, drain blockage, or road damage directly to the Panchayat executive desk with real-time tracking.
+          </p>
+        </div>
+        <div>
+          <a href="pages/complaint-submit.html" class="btn btn-gold btn-lg" data-i18n="cta_btn">
+            ✍️ File a Complaint Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       FOOTER
+       ========================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1: Brand Info -->
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom: 1.25rem;">
+            <div class="brand-icon-box" style="background: rgba(255,255,255,0.15);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+            </div>
+            <div class="brand-text">
+              <h1 style="color: #fff; font-size: 1.25rem;">Gramlink<span style="color: var(--gold-400);">360</span></h1>
+              <small style="color: #9abfb0;">Smart Village Services</small>
+            </div>
+          </div>
+          <p style="font-size: 0.875rem; color: #9abfb0; line-height: 1.7; margin-bottom: 1rem;" data-i18n="footer_tagline">
+            Empowering rural India through transparent, accountable, and SLA-driven e-governance.
+          </p>
+          <div style="font-size: 0.8rem; color: #7da595;">
+            📍 Gram Panchayat Shivrajpur, Taluka Baramati, Dist. Pune, Maharashtra – 413102
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="footer-col">
+          <h4 data-i18n="footer_col_nav">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+            <li><a href="pages/services.html" data-i18n="nav_services">Village Services Directory</a></li>
+            <li><a href="pages/complaint-submit.html" data-i18n="nav_submit">File Grievance</a></li>
+            <li><a href="pages/complaint-track.html" data-i18n="nav_track">Track Complaint Status</a></li>
+            <li><a href="pages/announcements.html" data-i18n="nav_announcements">Gram Sabha Announcements</a></li>
+            <li><a href="pages/village-dashboard.html" data-i18n="nav_village_pulse">Village Pulse & Open Data</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Portal Roles -->
+        <div class="footer-col">
+          <h4 data-i18n="footer_col_portals">Portal Access</h4>
+          <ul class="footer-links">
+            <li><a href="pages/resident-dashboard.html" data-i18n="res_dash_title">Resident Portal (ग्रामस्थ)</a></li>
+            <li><a href="pages/admin-dashboard.html" data-i18n="nav_admin_dash">Sarpanch & Admin Control Room</a></li>
+            <li><a href="pages/auth.html" data-i18n="nav_login">Official Staff Login</a></li>
+            <li><a href="pages/complaint-track.html?token=GL-2026-1042">Sample Track (GL-2026-1042)</a></li>
+            <li><a href="javascript:void(0)" id="footerReplayIntro" data-i18n="intro_replay">✨ Replay Intro Animation</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Project Info / Academic Context -->
+        <div class="footer-col">
+          <h4 data-i18n="footer_col_academic">Academic Mini Project</h4>
+          <p style="font-size: 0.85rem; color: #9abfb0; line-height: 1.6; margin-bottom: 1rem;" data-i18n="footer_academic_desc">
+            Developed for <strong>B.Tech Computer Science & Business Systems (CSBS)</strong>. Focuses on Business Process Re-engineering (BPR), SLA management, and open rural data governance. Gram Panchayat Shivrajpur is a fictional demonstration model for academic research and does not access real government databases.
+          </p>
+          <span class="badge badge-demo" data-i18n="footer_demo_notice">
+            Academic CSBS Mini Project - Fictional Demonstration Village (No Real Government Database Access)
+          </span>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div data-i18n="footer_copyright">
+          © 2026 Gramlink 360 • Smart Village Services Platform
+        </div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="#" style="color: #9abfb0;" data-i18n="footer_privacy">Privacy Policy</a>
+          <a href="#" style="color: #9abfb0;" data-i18n="footer_charter">Citizen Charter</a>
+          <a href="#" style="color: #9abfb0;" data-i18n="footer_terms">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/translations.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/three.min.js"></script>
+  <script>if (typeof THREE === 'undefined') { document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\\/script>'); }</script>
+  <script src="js/intro-3d.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
